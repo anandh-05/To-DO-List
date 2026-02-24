@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #52efef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgb(249, 243, 226);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+
+        }
+
+        #taskInput {
+            width: 325px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #add_btn {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(23, 157, 5);
+        }
+
+        #add_btn:hover {
+            background-color: rgb(61, 255, 47);
+        }
+
+        .delete_btn {
+            background-color: rgb(155, 4, 4);
+            border-radius: 5px;
+            border: rgb(71, 2, 2) solid 1px;
+        }
+
+        .delete_btn:hover {
+            background-color: red;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin: 5px;
+        }
+
+        #totalCount {
+            color: rgb(232, 137, 12);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>To-Do List</h2>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter new task">
+            <button onclick="addTask()" id="add_btn">Add</button>
+        </div>
+
+        <ul id="taskList"></ul>
+
+        <div class="stats">
+            <hr>
+            Total Tasks : <span id="totalCount">0</span>
+        </div>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById("taskInput");
+        const taskList = document.getElementById("taskList");
+        const totalCount = document.getElementById("totalCount");
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText == "") return;
+            taskInput.value = "";
+
+
+            const li = document.createElement("li");
+            li.innerHTML = taskText +
+                ` <button class="delete_btn" onclick="deleteTask(this)">Delete</button>`;
+
+            taskList.appendChild(li);
+            updateCounts();
+        }
+
+
+        function deleteTask(button) {
+            button.parentElement.remove();
+            updateCounts();
+        }
+
+        function updateCounts() {
+            const tasks = taskList.querySelectorAll("li");
+            totalCount.textContent = tasks.length;
+        }
+    </script>
+
+</body>
+
+</html>
